@@ -1,13 +1,13 @@
 from aiogram import Bot, Dispatcher, Router
-from aiogram.types import Message
-# from aiogram.types import BufferedInputFile
+from aiogram.types import Message, BufferedInputFile  # ← BufferedInputFile — здесь ✅
 from aiogram.filters import CommandStart
 from aiogram import F
-from aiogram.types import BufferedInputFile, ChatAction
+from aiogram.enums import ChatAction  # ← ChatAction — ОТСЮДА ✅
 import asyncio
+import os
+import random
 from gtts import gTTS
 from io import BytesIO
-import random
 
 with open("words.txt", "r", encoding="utf-8") as f:
     WORD_LIST = f.read().split()
