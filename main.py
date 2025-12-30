@@ -45,19 +45,24 @@ def generate_random_words(count: int = 25) -> str:
 @router.message(F.text)
 async def echo_handler(message: Message):
     text = message.text
-    await message.answer(f"Ты написал: {text}")
+    # await message.answer(f"Ты написал: {text}")
 
-    # Озвучка
     try:
         audio_stream = await text_to_speech(text)
-        audio_bytes = audio_stream.getvalue()
-        audio_input = BufferedInputFile(file=audio_bytes, filename="artemka.mp3")
-        await message.reply_audio(audio_input, title="Артёмка сказал", performer="Бот-папа")
+        audio_input = BufferedInputFile(audio_stream.getvalue(), "artemka.mp3")
+        await message.reply_audio(
+            audio_input,
+            title="Артёмка сказал",
+            performer="Бот-папа"
+        )
     except Exception as e:
         await message.answer(f"Не смог озвучить 😢 Ошибка: {e}")
 
-    # ➕ Генерация и отправка своих слов
-    bot_words = generate_random_words(count=25)
+    # ⏸️ Пауза 5 секунд — асинхронно!
+    await asyncio.sleep(5)
+
+    # ✅ Теперь — ответ бота
+    bot_words = generate_random_words(25)
     await message.answer(f"\n{bot_words}")
 
 
