@@ -52,13 +52,13 @@ async def echo_handler(message: Message):
         audio_stream = await text_to_speech(text)
         audio_bytes = audio_stream.getvalue()
         audio_input = BufferedInputFile(file=audio_bytes, filename="artemka.mp3")
-        await message.answer_audio(audio=audio_input, title="Артёмка сказал", performer="Бот-папа")
+        await message.reply_audio(audio_input, title="Артёмка сказал", performer="Бот-папа")
     except Exception as e:
         await message.answer(f"Не смог озвучить 😢 Ошибка: {e}")
 
     # ➕ Генерация и отправка своих слов
     bot_words = generate_random_words(count=25)
-    await message.answer(f"А я отвечаю:\n{bot_words}")
+    await message.answer(f"\n{bot_words}")
 
 
 # 5. Запуск
